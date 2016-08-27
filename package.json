@@ -2,10 +2,11 @@
   "name": "deck",
   "version": "0.0.1",
   "description": "Generate tiles based on their probability",
-  "main": "dist",
+  "main": "lib",
   "scripts": {
-    "build": "rm -rf dist && mkdir dist && babel index.js -o dist/index.js",
-    "test": "mocha --compilers js:babel-register"
+    "build": "rm -rf lib && mkdir lib && babel src -d lib",
+    "test": "mocha --compilers js:babel-register",
+    "demo": "babel-node src/demo.js"
   },
   "babel": {
     "presets": [

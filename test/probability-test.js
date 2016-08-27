@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import Deck from '../index';
+import Deck from '../src/deck';
 import { Range } from 'immutable';
 import Chance from 'chance';
 
 const chance = new Chance();
 const pickups = 10000;
-const delta = 0.055;
+const delta = 0.1;
 
 describe(`Probability tests with ${pickups} pickups and ${delta} delta`, function() {
   describe('Deck with one type', function() {
@@ -18,7 +18,7 @@ describe(`Probability tests with ${pickups} pickups and ${delta} delta`, functio
 
     Range(0, pickups).forEach(() => {
       const deck = new Deck(size, types);
-      const pickedUpTile = deck.getTile().get('type');
+      const pickedUpTile = deck.getTile();
 
       if (pickedUpTile === 'forest') {
         forests += 1;
@@ -56,7 +56,7 @@ describe(`Probability tests with ${pickups} pickups and ${delta} delta`, functio
 
         Range(0, pickups).forEach(() => {
           const deck = new Deck(deckSize, types);
-          const pickedUpTile = deck.getTile().get('type');
+          const pickedUpTile = deck.getTile();
 
           if (!pickedUpTile) {
             undefinedTiles += 1;
@@ -75,55 +75,6 @@ describe(`Probability tests with ${pickups} pickups and ${delta} delta`, functio
             expect(type.picks).to.be.closeTo(type.probSize, pickups * delta);
           });
         });
-      });
-    });
-  });
-
-  describe(`Picking up tiles from deck with 80% forests and 20% rocks`, function() {
-    const size = 1000;
-    const types = [
-      {
-        type: 'forest',
-        dist: 8,
-        neightbours: [
-          ['forest', 8],
-          ['rock', 2]
-        ]
-      },
-      {
-        type: 'rock',
-        dist: 2,
-        neighbours: [
-          ['rock', 8],
-          ['forest', 2]
-        ]
-      }
-    ];
-
-    describe('when there is no neighbour', function() {
-      let forests = 0;
-      let rocks = 0;
-      const fOutcome = Math.round(pickups * 0.8);
-      const rOutcome = Math.round(pickups * 0.2);
-
-      Range(0, pickups).forEach(() => {
-        const deck = new Deck(size, types);
-        const type = deck.getTile().get('type');
-
-        if (type === 'forest') {
-          forests += 1;
-        }
-        else if (type === 'rock') {
-          rocks += 1;
-        }
-      });
-
-      it(`should get about ${fOutcome} forests`, function() {
-        expect(forests).to.be.closeTo(fOutcome, pickups * delta);
-      });
-
-      it(`should get about ${rOutcome} rocks`, function() {
-        expect(rocks).to.be.closeTo(rOutcome, pickups * delta);
       });
     });
   });

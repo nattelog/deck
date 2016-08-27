@@ -1,5 +1,5 @@
 import assert from 'assert';
-import Deck from '../index';
+import Deck from '../src/deck';
 import { Range } from 'immutable';
 
 describe('Simple Deck', function() {
@@ -15,15 +15,15 @@ describe('Simple Deck', function() {
   });
 
   it('should have 7 forests', function() {
-    assert.equal(deck.deck.getIn(['forest', 'size']), 7);
+    assert.equal(deck.deck.getIn(['forest', 'count']), 7);
   });
 
   it('should have 3 rocks', function() {
-    assert.equal(deck.deck.getIn(['rock', 'size']), 3);
+    assert.equal(deck.deck.getIn(['rock', 'count']), 3);
   });
 
   it('should have no water', function() {
-    assert.equal(deck.deck.getIn(['water', 'size']), undefined);
+    assert.equal(deck.deck.getIn(['water', 'count']), undefined);
   });
 });
 
@@ -37,15 +37,15 @@ describe('Deck with even distribution', function() {
   const deck = new Deck(size, types);
 
   it('should have 3 forests', function() {
-    assert.equal(deck.deck.getIn(['forest', 'size']), 3);
+    assert.equal(deck.deck.getIn(['forest', 'count']), 3);
   });
 
   it('should have 3 rocks', function() {
-    assert.equal(deck.deck.getIn(['rock', 'size']), 3);
+    assert.equal(deck.deck.getIn(['rock', 'count']), 3);
   });
 
   it('should have 4 waters', function() {
-    assert.equal(deck.deck.getIn(['water', 'size']), 4);
+    assert.equal(deck.deck.getIn(['water', 'count']), 4);
   });
 });
 
