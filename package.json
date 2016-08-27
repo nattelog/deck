@@ -2,7 +2,7 @@
   "name": "deck",
   "version": "0.0.1",
   "description": "Generate tiles based on their probability",
-  "main": "lib",
+  "main": "lib/deck.js",
   "scripts": {
     "build": "rm -rf lib && mkdir lib && babel src -d lib",
     "test": "mocha --compilers js:babel-register",

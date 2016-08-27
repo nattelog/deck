@@ -13,8 +13,13 @@ export default class Deck {
 
     const relativeDist = this.deck.map(dist => {
       if (neighbours) {
-        const biomeValue = dist.getIn(['biome', neighbours[0]]) || 1;
-        return dist.get('count') * biomeValue;
+        let biomeValue = 0;
+
+        neighbours.forEach(neighbour => {
+          biomeValue += dist.getIn(['biome', neighbour]) || 0;
+        });
+
+        return dist.get('count') * (biomeValue || 1);
       }
       return dist.get('count');
     });
